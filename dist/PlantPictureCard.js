@@ -52,11 +52,11 @@ class PlantPictureCard extends HTMLElement {
     `;
 
     var _entities = [
-      hass.states[config.entity].attributes.sensors.moisture,
-      hass.states[config.entity].attributes.sensors.temperature,
-      hass.states[config.entity].attributes.sensors.brightness,
-      hass.states[config.entity].attributes.sensors.conductivity,
-      hass.states[config.entity].attributes.sensors.battery
+      hass.states[humidity.entity].entity_id,
+      hass.states[temperature.entity].entity_id,
+      hass.states[illuminance.entity].entity_id,
+      hass.states[conductivity.entity].entity_id,
+      hass.states[battery.entity].entity_id
     ];
 
     var _sensors = [
@@ -234,7 +234,11 @@ export class PlantPictureCardEditor extends LitElement {
       return html``;
     }
 
-    const entities = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "plant");
+    const humidity = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "sensor");
+    const temperature = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "sensor");
+    const battery = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "sensor");
+    const conductivity = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "sensor");
+    const illuminance = Object.keys(this.hass.states).filter((eid) => eid.substr(0, eid.indexOf(".")) === "sensor");
 
     return html`
       <div class="card-config">
@@ -246,12 +250,88 @@ export class PlantPictureCardEditor extends LitElement {
             @value-changed="${this._valueChanged}"
           ></paper-input>
           <paper-dropdown-menu
-            label="Entity"
-            .configValue="${"entity"}"
+            label="Humidity"
+            .configValue="${"humidity"}"
             @value-changed="${this._valueChanged}"
            >
-             <paper-listbox slot="dropdown-content" .selected=${entities.indexOf(this.config.entity)}>
-               ${entities.map((entity) => {
+             <paper-listbox slot="dropdown-content" .selected=${humidity.indexOf(this.config.entity)}>
+               ${humidity.map((entity) => {
+                  return html`
+                    <paper-item>${entity}</paper-item>
+                  `;
+                 })}
+             </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-input
+            label="Title"
+            .value="${this.config.title}"
+            .configValue="${"title"}"
+            @value-changed="${this._valueChanged}"
+          ></paper-input>
+          <paper-dropdown-menu
+            label="Temperature"
+            .configValue="${"temperature"}"
+            @value-changed="${this._valueChanged}"
+           >
+             <paper-listbox slot="dropdown-content" .selected=${temperature.indexOf(this.config.entity)}>
+               ${temperature.map((entity) => {
+                  return html`
+                    <paper-item>${entity}</paper-item>
+                  `;
+                 })}
+             </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-input
+            label="Title"
+            .value="${this.config.title}"
+            .configValue="${"title"}"
+            @value-changed="${this._valueChanged}"
+          ></paper-input>
+          <paper-dropdown-menu
+            label="Conductivity"
+            .configValue="${"conductivity"}"
+            @value-changed="${this._valueChanged}"
+           >
+             <paper-listbox slot="dropdown-content" .selected=${conductivity.indexOf(this.config.entity)}>
+               ${conductivity.map((entity) => {
+                  return html`
+                    <paper-item>${entity}</paper-item>
+                  `;
+                 })}
+             </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-input
+            label="Title"
+            .value="${this.config.title}"
+            .configValue="${"title"}"
+            @value-changed="${this._valueChanged}"
+          ></paper-input>
+          <paper-dropdown-menu
+            label="Battery"
+            .configValue="${"battery"}"
+            @value-changed="${this._valueChanged}"
+           >
+             <paper-listbox slot="dropdown-content" .selected=${battery.indexOf(this.config.entity)}>
+               ${battery.map((entity) => {
+                  return html`
+                    <paper-item>${entity}</paper-item>
+                  `;
+                 })}
+             </paper-listbox>
+          </paper-dropdown-menu>
+          <paper-input
+            label="Title"
+            .value="${this.config.title}"
+            .configValue="${"title"}"
+            @value-changed="${this._valueChanged}"
+          ></paper-input>
+          <paper-dropdown-menu
+            label="Illuminance"
+            .configValue="${"illuminance"}"
+            @value-changed="${this._valueChanged}"
+           >
+             <paper-listbox slot="dropdown-content" .selected=${illuminance.indexOf(this.config.entity)}>
+               ${illuminance.map((entity) => {
                   return html`
                     <paper-item>${entity}</paper-item>
                   `;
